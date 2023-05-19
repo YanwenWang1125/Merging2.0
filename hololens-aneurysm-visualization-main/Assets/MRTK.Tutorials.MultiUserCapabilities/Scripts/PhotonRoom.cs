@@ -10,8 +10,8 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public static PhotonRoom Room;
 
         [SerializeField] private GameObject photonUserPrefab = default;
-        [SerializeField] private GameObject roverExplorerPrefab = default;
-        [SerializeField] private GameObject newTempObj = default;
+        [SerializeField] private GameObject skullPrefab = default;
+        [SerializeField] private GameObject brainPrefab = default;
         [SerializeField] private Transform roverExplorerLocation = default;
         public GameObject ImageTarget;
 
@@ -82,21 +82,6 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             PhotonNetwork.RemoveCallbackTarget(this);
         }
 
-
-        private void createPrivatePV() {
-            string objName = "NetworkRoom";
-            GameObject userObj = GameObject.Find(objName);
-            if (userObj != null)
-                pv = userObj.GetComponent<PhotonView>();
-   
-                
-            if(!pv.IsMine)
-                pv.RequestOwnership();
-            Debug.Log(pv.Owner + " : " + pv.OwnerActorNr);
-            Debug.Log("PV is mine: " + pv.IsMine);
-
-        }
-
    
 
 
@@ -108,8 +93,8 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             if (PhotonNetwork.PrefabPool is DefaultPool pool)
             {
                 if (photonUserPrefab != null) pool.ResourceCache.Add(photonUserPrefab.name, photonUserPrefab);
-                if (newTempObj != null) pool.ResourceCache.Add(newTempObj.name, newTempObj);
-                if (roverExplorerPrefab != null) pool.ResourceCache.Add(roverExplorerPrefab.name, roverExplorerPrefab);
+                if (photonUserPrefab != null) pool.ResourceCache.Add(skullPrefab.name, skullPrefab);
+                if (photonUserPrefab != null) pool.ResourceCache.Add(brainPrefab.name, brainPrefab);
             }
 
             
@@ -145,7 +130,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
         
 
-        public void MyCreation()
+        public void MyCreation(GameObject newTempObj)
         {
             hasObjInRoom = true;
 
@@ -160,83 +145,23 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
 
             var position = roverExplorerLocation.transform.position;
-            var positionOnTopOfSurface = new Vector3(position.x, position.y,
+            var positionOnTopOfSurface = new Vector3(position.x, position.y+0.5f,
                 position.z);
-            var go = PhotonNetwork.Instantiate(newTempObj.name, positionOnTopOfSurface,
-                roverExplorerLocation.transform.rotation);
-            /*[SerializeField]
-                        newTempObj.transform.SetParent(ImageTarget.transform);*/
+
+
+            Debug.Log(positionOnTopOfSurface);
+            
+            Quaternion rotation = newTempObj.transform.rotation;
+            var go = PhotonNetwork.Instantiate(newTempObj.name, positionOnTopOfSurface, rotation);
+          
+           
+            
+
 
 
         }
 
-        /*
-                [PunRPC]
-                private void UpdateDynamicAnchor(Vector3 position, Quaternion rotation)
-                {
-                    // Update the dynamic anchor's position and rotation
-                    anchorPosition = position;
-                    anchorRotation = rotation;
-                }
-                public void trackingImage()
-                {
-                    anchorPosition = ImageTarget.transform.position;
-                    anchorRotation = ImageTarget.transform.rotation;
-
-                    // Update the dynamic anchor's position and rotation across the network
-                    if (pv != null)
-                        pv.RPC("UpdateDynamicAnchor", RpcTarget.Others, anchorPosition, anchorRotation);
-                    else
-                        Debug.Log("PV is null");     
-                }*/
-
-
-
-   /*     [PunRPC]
-        public void DisableObject()
-        {
-            string cloneObjName = newTempObj.name + "(Clone)";
-            GameObject cloneObj = GameObject.Find(cloneObjName);
-            if (cloneObj != null)
-            {
-                cloneObj.SetActive(false);
-                hasObjInRoom = false;
-                Debug.LogWarning("GameObject " + cloneObjName + " found.");
-            }
-            else
-            {
-                Debug.LogWarning("GameObject " + cloneObjName + " not found. It may have been destroyed.");
-            }
-        }
-
-                             public void MyDeletion()
-        {
-
-            if (hasObjInRoom)
-            {
-                createPrivatePV();
-                if (pv != null)
-                {
-
-
-                    // Check if you are the owner before calling the RPC
-                    if (pv.IsMine)
-                    {
-                        pv.RPC("DisableObject", RpcTarget.All);
-                        Debug.LogWarning("PhotonView found on ImageTarget.");
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Ownership request for PhotonView on ImageTarget was not successful.");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("PhotonView not found on ImageTarget.");
-                }
-            }
-        }
-*/
+      
 
 
         // private void CreateMainLunarModule()
