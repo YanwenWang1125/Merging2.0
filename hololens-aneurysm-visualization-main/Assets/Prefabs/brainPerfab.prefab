@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -4613749994477518940}
   - component: {fileID: 8102641116241020577}
   - component: {fileID: 6088615083655483215}
+  - component: {fileID: 6480620568966395635}
   m_Layer: 0
   m_Name: grp1
   m_TagString: Untagged
@@ -96,6 +97,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTetherWhenManipulating: 0
   IsBoundsHandles: 0
+--- !u!135 &6480620568966395635
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: -5304457597003473624}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 92.30132
+  m_Center: {x: -2.033001, y: 4.3042, z: -12.649352}
 --- !u!1 &7298248361799343270
 GameObject:
   m_ObjectHideFlags: 0

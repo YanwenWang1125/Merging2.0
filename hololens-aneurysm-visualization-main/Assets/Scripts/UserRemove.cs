@@ -8,9 +8,23 @@ public class UserRemove : MonoBehaviour
 {
 
     private PhotonView pv;
-    
 
-    private void createPrivatePV() {
+    [PunRPC]
+    public void DisableObject(string removingObjName)
+    {
+        string cloneObjName = removingObjName + "(Clone)";
+        GameObject cloneObj = GameObject.Find(cloneObjName);
+        if (cloneObj != null)
+        {
+            cloneObj.SetActive(false);
+            Debug.LogWarning("GameObject " + cloneObjName + " found.");
+        }
+        else
+        {
+            Debug.LogWarning("GameObject " + cloneObjName + " not found. It may have been destroyed.");
+        }
+    }
+/*    private void createPrivatePV() {
 
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
         string userObjName = "User" + playerCount;
@@ -27,21 +41,7 @@ public class UserRemove : MonoBehaviour
         
      
     }
-    [PunRPC]
-    public void DisableObject(string removingObjName)
-    {
-        string cloneObjName = removingObjName + "(Clone)";
-        GameObject cloneObj = GameObject.Find(cloneObjName);
-        if (cloneObj != null)
-        {
-            cloneObj.SetActive(false);
-            Debug.LogWarning("GameObject " + cloneObjName + " found.");
-        }
-        else
-        {
-            Debug.LogWarning("GameObject " + cloneObjName + " not found. It may have been destroyed.");
-        }
-    }
+    
 
 
     private bool checkObjExist(GameObject removingObj) {
@@ -81,5 +81,5 @@ public class UserRemove : MonoBehaviour
                 Debug.LogWarning("PhotonView not found on ImageTarget.");
             }
         }
-    }
+    }*/
 }

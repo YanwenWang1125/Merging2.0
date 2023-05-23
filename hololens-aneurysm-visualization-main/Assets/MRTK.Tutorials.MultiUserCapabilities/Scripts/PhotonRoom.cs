@@ -2,6 +2,9 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
+
+
 
 namespace MRTK.Tutorials.MultiUserCapabilities
 {
@@ -10,6 +13,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public static PhotonRoom Room;
 
         [SerializeField] private GameObject photonUserPrefab = default;
+        [SerializeField] private GameObject readyPrefab = default;
         [SerializeField] private GameObject skullPrefab = default;
         [SerializeField] private GameObject brainPrefab = default;
         [SerializeField] private Transform roverExplorerLocation = default;
@@ -24,26 +28,10 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         private bool hasObjInRoom = false;
 
 
-        // private GameObject module;
-        // private Vector3 moduleLocation = Vector3.zero;
-/*
-        [PunRPC]
-        public void PRCAllObj(GameObject cloneObj, Vector3 newVector) {
-            
-            if (cloneObj != null)
-            {
-                cloneObj.transform.position = newVector;
-                
-               
-                    
-            }
-        }*/
+     
 
         public void update() {
-      /*      string cloneObjName = newTempObj.name + "(Clone)";
-            GameObject cloneObj = GameObject.Find(cloneObjName);
-            cloneObj.transform.position = ImageTarget.transform.position;*/
-            /*photonView.RPC("PRCAllObj", RpcTarget.All, cloneObj, ImageTarget.transform);*/
+    
 
         }
 
@@ -53,7 +41,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             photonPlayers = PhotonNetwork.PlayerList;
             playersInRoom++;
         }
-
+        
         private void Awake()
         {
             if (Room == null)
@@ -87,7 +75,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
         private void Start()
         {
-            pv = ImageTarget.GetComponent<PhotonView>();
+         
 
             // Allow prefabs not in a Resources folder
             if (PhotonNetwork.PrefabPool is DefaultPool pool)
@@ -95,6 +83,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
                 if (photonUserPrefab != null) pool.ResourceCache.Add(photonUserPrefab.name, photonUserPrefab);
                 if (photonUserPrefab != null) pool.ResourceCache.Add(skullPrefab.name, skullPrefab);
                 if (photonUserPrefab != null) pool.ResourceCache.Add(brainPrefab.name, brainPrefab);
+                if (photonUserPrefab != null) pool.ResourceCache.Add(readyPrefab.name, readyPrefab);
             }
 
             
@@ -115,27 +104,111 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         private void StartGame()
         {
             CreatPlayer();
-        /*    createPrivatePV();*/
-
-            /*
-                        if (TableAnchor.Instance != null) CreateInteractableObjects();*/
+   
+            if (TableAnchor.Instance != null) CreateInteractableObjects();
         }
 
+
+        private void CreateInteractableObjects() {
+
+            MyCreation(readyPrefab);
+        
+        }
         private void CreatPlayer()
         {
             var player = PhotonNetwork.Instantiate(photonUserPrefab.name, new Vector3(0f, 0.2f, 0f), Quaternion.identity);
         }
 
-    
 
-        
+
+        private void createPrivatePV()
+        {
+
+            int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+            string userObjName = "User" + playerCount;
+            GameObject userObj = GameObject.Find(userObjName);
+
+            if (userObj != null)
+            {
+                PhotonView photonView = userObj.GetComponent<PhotonView>();
+                Debug.Log(userObj.gameObject.name);
+                pv = photonView;
+            }
+            else
+                Debug.Log("Current User Obj is Null");
+
+
+        }
+
+
+        private void removeAllObj() {
+
+            // Initialize a list of GameObjects
+            List<GameObject> gameObjectList = new List<GameObject>();
+
+            // Add GameObjects to the list
+            gameObjectList.Add(skullPrefab);
+            gameObjectList.Add(brainPrefab);
+     
+
+            // Iterate through the list of GameObjects
+            foreach (GameObject gameObject in gameObjectList)
+            {
+                // Perform some operation on each GameObject
+                // For instance, we can just print the GameObject's name:
+                MyDeletion(gameObject);
+            }
+
+
+        }
+        private bool checkObjExist(GameObject removingObj)
+        {
+            bool results = false;
+            if (removingObj == null)
+            {
+                Debug.Log("removing Object is null");
+            }
+            string objectStringName = removingObj.name + "(Clone)";
+            if (GameObject.Find(objectStringName) != null)
+                results = true;
+            return results;
+        }
+
+
+        public void MyDeletion(GameObject removingObj)
+        {
+            Debug.Log(removingObj.name);
+            if (checkObjExist(removingObj))
+            {
+                createPrivatePV();
+                if (pv != null)
+                {
+
+                    // Check if you are the owner before calling the RPC
+                    if (pv.IsMine)
+                    {
+                        pv.RPC("DisableObject", RpcTarget.All, removingObj.name);
+                        Debug.LogWarning("PhotonView found on ImageTarget.");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Ownership request for PhotonView on ImageTarget was not successful.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("PhotonView not found on ImageTarget.");
+                }
+            }
+        }
+
+
 
         public void MyCreation(GameObject newTempObj)
         {
-            hasObjInRoom = true;
 
-    /*        trackingImage();*/
-                                                                 
+            removeAllObj();
+
 
             if (PhotonNetwork.PrefabPool is DefaultPool pool)
             {
@@ -144,20 +217,43 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             }
 
 
-            var position = roverExplorerLocation.transform.position;
-            var positionOnTopOfSurface = new Vector3(position.x, position.y+0.5f,
-                position.z);
+            // Find the parent object (which should be active)
+            GameObject parentObj = GameObject.Find("TableAnchor");
+            if (parentObj == null)
+                Debug.Log("Null TableAnchor");
 
 
-            Debug.Log(positionOnTopOfSurface);
-            
-            Quaternion rotation = newTempObj.transform.rotation;
-            var go = PhotonNetwork.Instantiate(newTempObj.name, positionOnTopOfSurface, rotation);
+            // Find the inactive child object
+            Transform objTransform = parentObj.transform.Find(newTempObj.name + "(Clone)");
+
+            // Check if the object is not null (that is, it was found)
+            if (objTransform != null)
+            {
+                // Set the object to active
+                objTransform.gameObject.SetActive(true);
+                Debug.Log(objTransform.name);
+            }
+            else
+            {
+                var position = roverExplorerLocation.transform.position;
+                var positionOnTopOfSurface = new Vector3(position.x, position.y + 0.5f,
+                    position.z);
+
+
+                Debug.Log(positionOnTopOfSurface);
+
+                Quaternion rotation = newTempObj.transform.rotation;
+                var go = PhotonNetwork.Instantiate(newTempObj.name, positionOnTopOfSurface, rotation);
+                Debug.Log("Null Object was inactive was given name was found: " + newTempObj + "(Clone)");
+            }
+
+
+
+
+           
           
            
             
-
-
 
         }
 

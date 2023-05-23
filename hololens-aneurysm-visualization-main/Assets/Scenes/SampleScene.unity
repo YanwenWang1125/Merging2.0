@@ -191,6 +191,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2142580760}
     - target: {fileID: 2645002552411527826, guid: 14cae43a723f13c48b7eb9496c8a09ab, type: 3}
+      propertyPath: brainPrefab
+      value: 
+      objectReference: {fileID: 7298248361799343270, guid: 4632189fa7b3cb040839eda4f7c4cc4d, type: 3}
+    - target: {fileID: 2645002552411527826, guid: 14cae43a723f13c48b7eb9496c8a09ab, type: 3}
+      propertyPath: readyPrefab
+      value: 
+      objectReference: {fileID: 1600547508534026769, guid: ada45b67714e6964593f022d6ab44716, type: 3}
+    - target: {fileID: 2645002552411527826, guid: 14cae43a723f13c48b7eb9496c8a09ab, type: 3}
+      propertyPath: skullPrefab
+      value: 
+      objectReference: {fileID: 5919001102394579971, guid: 6e10f0a834b9a494a8fc3a4f14734eea, type: 3}
+    - target: {fileID: 2645002552411527826, guid: 14cae43a723f13c48b7eb9496c8a09ab, type: 3}
       propertyPath: photonUserPrefab
       value: 
       objectReference: {fileID: 3000569307421430844, guid: 77681e113a66a094ca9b8d6e673d84e0, type: 3}
@@ -393,7 +405,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 794162918}
+  - {fileID: 822926915}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -449,7 +461,7 @@ MonoBehaviour:
         m_MethodName: MyCreation
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4750439232699146245, guid: b4750704bf96df94488a0e3f3f2300f2, type: 3}
+          m_ObjectArgument: {fileID: 919132149155446097, guid: 3e86e8792e5823f459ab598834df76d9, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -464,7 +476,7 @@ MonoBehaviour:
         m_MethodName: MyDeletion
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4750439232699146245, guid: b4750704bf96df94488a0e3f3f2300f2, type: 3}
+          m_ObjectArgument: {fileID: 919132149155446097, guid: 3e86e8792e5823f459ab598834df76d9, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -499,7 +511,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168570599}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.231, y: -0.464, z: 2.233}
+  m_LocalPosition: {x: 0.231, y: -0.464, z: 1.9677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1007,7 +1019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d468ba087db3f2438ce842236470f57, type: 3}
---- !u!21 &794162918
+--- !u!21 &822926915
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -1016,7 +1028,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: '3dReconMaterial
 
-    -64580'
+    23074'
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -1484,7 +1496,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.10499999, y: 0, z: 0.069955}
+      m_Extent: {x: 0.105, y: 0, z: 0.06926}
   m_Shapes:
     vertices: []
     shapes: []
@@ -1563,7 +1575,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 3d0ad7bd000000006281cfbd00000000ffff7f3f0000000000000000000000003d0ad7bd000000006281cf3d00000000ffff7f3f00000000000000000000803f3d0ad73d000000006281cfbd00000000ffff7f3f000000000000803f000000003d0ad73d000000006281cf3d00000000ffff7f3f000000000000803f0000803f
+    _typelessdata: 3d0ad7bd000000006281cfbd000000000000803f0000000000000000000000003d0ad7bd000000006281cf3d000000000000803f00000000000000000000803f3d0ad73d000000006281cfbd000000000000803f000000000000803f000000003d0ad73d000000006281cf3d000000000000803f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -2024,7 +2036,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1551082392}
+  - {fileID: 2026750581}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2229,35 +2241,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1551082392
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'brainMaterial
-
-    -38868'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b84ac4c96bf3464ebdc58cbb606bbc6d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
-  m_BuildTextureStacks: []
 --- !u!43 &1643774704
 Mesh:
   m_ObjectHideFlags: 0
@@ -2433,6 +2416,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 354532518a3834348a0df0e4909ce564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1837618096
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'skullMaterial
+
+    23228'
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: e08ee377f36844d095e64b10051976f6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
+  m_BuildTextureStacks: []
 --- !u!43 &1889866360
 Mesh:
   m_ObjectHideFlags: 0
@@ -2597,16 +2609,16 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!21 &1901793395
+--- !u!21 &2026750581
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 'skullMaterial
+  m_Name: 'brainMaterial
 
-    33692'
+    23192'
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -2619,7 +2631,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e08ee377f36844d095e64b10051976f6, type: 3}
+        m_Texture: {fileID: 2800000, guid: b84ac4c96bf3464ebdc58cbb606bbc6d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -2682,7 +2694,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1901793395}
+  - {fileID: 1837618096}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
