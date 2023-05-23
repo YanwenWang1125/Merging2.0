@@ -16,6 +16,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         [SerializeField] private GameObject readyPrefab = default;
         [SerializeField] private GameObject skullPrefab = default;
         [SerializeField] private GameObject brainPrefab = default;
+        [SerializeField] private GameObject videoPrefab = default;
         [SerializeField] private Transform roverExplorerLocation = default;
         public GameObject ImageTarget;
 
@@ -84,6 +85,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
                 if (photonUserPrefab != null) pool.ResourceCache.Add(skullPrefab.name, skullPrefab);
                 if (photonUserPrefab != null) pool.ResourceCache.Add(brainPrefab.name, brainPrefab);
                 if (photonUserPrefab != null) pool.ResourceCache.Add(readyPrefab.name, readyPrefab);
+                if (photonUserPrefab != null) pool.ResourceCache.Add(videoPrefab.name, videoPrefab);
             }
 
             
@@ -149,7 +151,8 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             // Add GameObjects to the list
             gameObjectList.Add(skullPrefab);
             gameObjectList.Add(brainPrefab);
-     
+            gameObjectList.Add(videoPrefab);
+
 
             // Iterate through the list of GameObjects
             foreach (GameObject gameObject in gameObjectList)
